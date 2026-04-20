@@ -1,43 +1,64 @@
-# Astro Starter Kit: Minimal
+# Warteg Barokah Abadi 🍱
 
+A modern, high-performance landing page for **Warteg Barokah Abadi**, a local Indonesian business specialized in authentic and hygienic home-style cooking. Built with a focus on speed, cinematic visuals, and seamless customer interaction.
+
+---
+
+## ✨ Features
+
+- **💎 Cinematic UI**: A professional "Glassmorphic" interface using Tailwind CSS and Framer Motion for smooth animations.
+- **📱 WhatsApp Integration**: Direct ordering system via a floating button and item-specific pre-filled chat links.
+- **📊 Integrated Analytics**: Full Google Analytics tracking for user engagements (menu clicks, location views, etc.).
+- **🗺️ Interactive Map**: Real-time business location via Google Maps API embedding.
+- **🚀 Automated Deployment**: CI/CD pipeline via GitHub Actions to GitHub Pages.
+- **🔍 SEO Optimized**: Includes LocalBusiness Schema (JSON-LD) for better search engine visibility.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Astro 6](https://astro.build/) (Static Site Generation)
+- **UI Logic**: [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+---
+
+## ⚡ Getting Started
+
+### Prerequisites
+- Node.js `^22.12.0`
+- npm
+
+### Installation
 ```sh
-npm create astro@latest -- --template minimal
+npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Local Development
+```sh
+npm run dev
 ```
+The site will be available at `http://localhost:4321`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Production Build
+```sh
+npm run build
+```
+The static files will be generated in the `dist/` directory.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 🌍 Deployment
 
-## 🧞 Commands
+This project is configured for **GitHub Pages**.
 
-All commands are run from the root of the project, from a terminal:
+1. **GitHub Actions**: Deployment is triggered automatically on every push to the `main` branch via `.github/workflows/deploy.yml`.
+2. **Sub-path**: The site is deployed to `/warteg-barokah-abadi`.
+3. **URL**: [https://deanufriana.github.io/warteg-barokah-abadi/](https://deanufriana.github.io/warteg-barokah-abadi/)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+---
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 👨‍💻 Creator
+Developed by [deanufriana](https://deanufriana.github.io/).
