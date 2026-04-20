@@ -1,0 +1,114 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Warteg Barokah Abadi - Lezat & Higienis", 
+  description = "Nikmati sajian khas Warteg Barokah Abadi. Soto Ayam, Nasi Rames, dan aneka minuman segar. Buka setiap hari di Pulo Gebang, Jakarta Timur."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/assets/icon.png`} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CWVQX5VN8" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-1CWVQX5VN8');
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site)} />
+
+    <!-- Schema.org Local Business -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Warteg Barokah Abadi",
+      "image": new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site).toString(),
+      "description": description,
+      "servesCuisine": "Indonesian",
+      "priceRange": "Rp",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Raya Pulo Gebang No.RT04/04, RT.4/RW.4, Pulo Gebang",
+        "addressLocality": "Kec. Cakung, Kota Jakarta Timur",
+        "postalCode": "13950",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.1956116,
+        "longitude": 106.921431
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ],
+        "opens": "07:00",
+        "closes": "22:00"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "153"
+      }
+    })} />
+  </head>
+  <body class="min-h-screen bg-background font-sans antialiased selection:bg-brand/10 selection:text-brand">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --brand: #912727;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: var(--brand);
+    border-radius: 10px;
+  }
+</style>

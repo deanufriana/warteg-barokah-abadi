@@ -7,6 +7,8 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://deanufriana.github.io',
+  base: '/warteg-barokah-abadi',
   vite: {
     plugins: [tailwindcss()]
   },
