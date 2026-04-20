@@ -11,10 +11,10 @@ import { Footer } from "../components/Footer";
 <Layout>
   <main>
     <Navbar client:load />
-    <Hero client:load />
-    <MenuSection client:load />
+    <Hero client:visible />
+    <MenuSection client:visible />
     <Reviews client:visible />
-    <MapSection client:load />
-    <Footer client:load />
+    <MapSection client:visible />
+    <Footer client:idle />
   </main>
 </Layout>

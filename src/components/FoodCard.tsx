@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -16,6 +15,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Eye } from "lucide-react";
+import { useState } from "react";
+import { BUSINESS } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 interface FoodCardProps {
   title: string;
@@ -27,24 +29,33 @@ interface FoodCardProps {
 }
 
 export function FoodCard ({ title, image, price, description, category, isPopular }: FoodCardProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className="group relative overflow-hidden rounded-3xl border-none bg-zinc-50/50 dark:bg-zinc-900/50 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-2 cursor-pointer">
-          <div className="aspect-[4/3] w-full overflow-hidden relative">
+        <Card className="group relative overflow-hidden rounded-xl border-none bg-zinc-50/50 dark:bg-zinc-900/50 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-2 cursor-pointer p-0">
+          <div className="aspect-[1.1/1] w-full overflow-hidden relative rounded-t-xl">
+            {/* Skeleton Loader */}
+            {!isLoaded && (
+              <div className="absolute inset-0 bg-zinc-200 dark:bg-zinc-800 animate-pulse transition-opacity duration-500" />
+            )}
+
             <img
               src={image}
               alt={title}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onLoad={() => setIsLoaded(true)}
+              className={`h-full w-full object-cover transition-all duration-700 group-hover:scale-110 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                }`}
             />
             {isPopular && (
-              <Badge className="absolute top-4 left-4 bg-brand text-white border-none px-3 py-1">
+              <Badge className="absolute top-6 left-6 bg-brand text-white border-none px-4 py-1.5 rounded-full text-xs font-bold shadow-lg shadow-brand/20">
                 Favorit
               </Badge>
             )}
             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 transform scale-50 group-hover:scale-100 transition-transform duration-500">
-                <Eye className="text-white h-6 w-6" />
+              <div className="bg-white/20 backdrop-blur-md p-4 rounded-full border border-white/30 transform scale-50 group-hover:scale-100 transition-transform duration-500">
+                <Eye className="text-white h-7 w-7" />
               </div>
             </div>
           </div>
@@ -90,19 +101,13 @@ export function FoodCard ({ title, image, price, description, category, isPopula
             </DialogDescription>
           </DialogHeader>
           <div className="flex items-center gap-4 pt-4">
-            <Button 
+            <Button
               className="flex-1 h-12 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-xl gap-2 font-medium"
-              onClick={() => {
-                if (typeof window !== "undefined" && (window as any).gtag) {
-                  (window as any).gtag("event", "click_order_item", {
-                    item_name: title,
-                  });
-                }
-              }}
+              onClick={() => trackEvent("click_order_item", { item_name: title })}
               asChild
             >
-              <a 
-                href={`https://wa.me/6285714277116?text=Halo%20Warteg%20Barokah,%20saya%20ingin%20pesan%20${encodeURIComponent(title)}.`} 
+              <a
+                href={BUSINESS.whatsappUrl(`Halo Warteg Barokah, saya ingin pesan ${title}.`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >

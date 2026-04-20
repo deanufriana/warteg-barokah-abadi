@@ -1,11 +1,24 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { MenuTabs } from "./MenuTabs";
+
+// Import all images from src/assets for optimization
+import ramesImg from "../assets/rames.png";
+import sotoImg from "../assets/soto-new.png";
+import rendangImg from "../assets/rendang.png";
+import kikilImg from "../assets/kikil.png";
+import cumiImg from "../assets/cumi.png";
+import oporImg from "../assets/opor.png";
+import ususImg from "../assets/usus.png";
+import sayurAsemImg from "../assets/sayur-asem.png";
+import orekImg from "../assets/orek.png";
+import telurImg from "../assets/telur.png";
+import tehImg from "../assets/teh.png";
+import jerukImg from "../assets/jeruk.png";
 
 const menuItems = [
   {
     title: "Nasi Rames",
-    image: "/assets/rames.png",
+    image: ramesImg.src,
     price: "15.000",
     category: "Makanan",
     description: "Nasi hangat dengan 3 pilihan sayur dan 1 lauk utama. Pilihan paling fleksibel dan favorit.",
@@ -13,7 +26,7 @@ const menuItems = [
   },
   {
     title: "Soto Ayam",
-    image: "/assets/soto-new.png",
+    image: sotoImg.src,
     price: "18.000",
     category: "Makanan",
     description: "Kuah kuning gurih dengan suwiran ayam, soun, tauge, dan koya renyah.",
@@ -21,7 +34,7 @@ const menuItems = [
   },
   {
     title: "Rendang Daging",
-    image: "/assets/rendang.png",
+    image: rendangImg.src,
     price: "12.000",
     category: "Makanan",
     description: "Daging sapi empuk yang dimasak lama dengan santan dan rempah-rempah pilihan.",
@@ -29,7 +42,7 @@ const menuItems = [
   },
   {
     title: "Kikil Mercon",
-    image: "/assets/kikil.png",
+    image: kikilImg.src,
     price: "9.000",
     category: "Makanan",
     description: "Olahan kikil sapi lembut dengan bumbu cabai pedas yang menggugah selera.",
@@ -37,7 +50,7 @@ const menuItems = [
   },
   {
     title: "Cumi Asin Ijo",
-    image: "/assets/cumi.png",
+    image: cumiImg.src,
     price: "10.000",
     category: "Makanan",
     description: "Cumi asin dipadukan dengan irisan cabai hijau dan bawang yang gurih pedas.",
@@ -45,7 +58,7 @@ const menuItems = [
   },
   {
     title: "Ayam Opor",
-    image: "/assets/opor.png",
+    image: oporImg.src,
     price: "12.000",
     category: "Makanan",
     description: "Ayam goreng bumbu kuning dengan kuah santan kental yang kaya rasa.",
@@ -53,7 +66,7 @@ const menuItems = [
   },
   {
     title: "Tumis Usus",
-    image: "/assets/usus.png",
+    image: ususImg.src,
     price: "6.000",
     category: "Makanan",
     description: "Usus ayam bersih yang ditumis dengan bumbu kecap pedas manis.",
@@ -61,7 +74,7 @@ const menuItems = [
   },
   {
     title: "Sayur Asem",
-    image: "/assets/sayur-asem.png",
+    image: sayurAsemImg.src,
     price: "7.000",
     category: "Makanan",
     description: "Sayuran segar dengan kuah asam yang segar, pas untuk pendamping nasi rames.",
@@ -69,7 +82,7 @@ const menuItems = [
   },
   {
     title: "Tempe Orek",
-    image: "/assets/orek.png",
+    image: orekImg.src,
     price: "4.000",
     category: "Makanan",
     description: "Tempe yang diiris kecil-kecil dan dimasak dengan kecap manis dan bumbu iris.",
@@ -77,7 +90,7 @@ const menuItems = [
   },
   {
     title: "Telur Balado",
-    image: "/assets/telur.png",
+    image: telurImg.src,
     price: "6.000",
     category: "Makanan",
     description: "Telur rebus goreng dengan balutan sambal balado merah merona.",
@@ -85,24 +98,21 @@ const menuItems = [
   },
   {
     title: "Es Teh Manis",
-    image: "/assets/teh.png",
+    image: tehImg.src,
     price: "5.000",
     category: "Minuman",
-    description: "Teh melati pilihan dengan gula asli dan es kristal.",
+    description: "Teh melati pilihan dengan gula asli and es kristal.",
     isPopular: false
   },
   {
     title: "Es Jeruk",
-    image: "/assets/jeruk.png",
+    image: jerukImg.src,
     price: "7.000",
     category: "Minuman",
     description: "Jeruk peras murni yang menyegarkan dahaga.",
     isPopular: false
   },
-].map(item => ({
-  ...item,
-  image: (import.meta.env.BASE_URL || '') + item.image
-}));
+];
 
 const categories = ["Semua", "Makanan", "Minuman"];
 
@@ -124,7 +134,7 @@ export function MenuSection () {
             Menu <span className="text-brand italic drop-shadow-sm">Autentik</span>
           </h2>
           <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl font-light leading-relaxed">
-            Kelezatan masakan rumahan autentik yang disiapkan dengan cinta dan bahan terbaik setiap harinya.
+            Kelezatan masakan rumahan autentik yang disiapkan dengan cinta and bahan terbaik setiap harinya.
           </p>
         </motion.div>
 

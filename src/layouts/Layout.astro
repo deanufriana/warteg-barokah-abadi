@@ -1,4 +1,6 @@
 ---
+import { WhatsAppFAB } from "@/components/WhatsAppFAB";
+import { BUSINESS } from "@/lib/constants";
 import "../styles/global.css";
 
 interface Props {
@@ -7,32 +9,35 @@ interface Props {
 }
 
 const { 
-  title = "Warteg Barokah Abadi - Lezat & Higienis", 
-  description = "Nikmati sajian khas Warteg Barokah Abadi. Soto Ayam, Nasi Rames, dan aneka minuman segar. Buka setiap hari di Pulo Gebang, Jakarta Timur."
+  title = `${BUSINESS.name} - ${BUSINESS.tagline}`, 
+  description = BUSINESS.description
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site);
 ---
 
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/assets/icon.png`} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
     
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CWVQX5VN8" is:inline></script>
-    <script is:inline>
+    <!-- Google Analytics (GA4) -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${BUSINESS.analyticsId}`} is:inline></script>
+    <script is:inline define:vars={{ analyticsId: BUSINESS.analyticsId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'G-1CWVQX5VN8');
+      gtag('config', analyticsId);
     </script>
 
     <!-- Open Graph / Facebook -->
@@ -40,28 +45,30 @@ const {
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site)} />
+    <meta property="og:image" content={socialImageURL} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site)} />
+    <meta property="twitter:image" content={socialImageURL} />
 
     <!-- Schema.org Local Business -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Restaurant",
-      "name": "Warteg Barokah Abadi",
-      "image": new URL(`${import.meta.env.BASE_URL}/assets/hero.png`, Astro.site).toString(),
+      "name": BUSINESS.name,
+      "image": socialImageURL.toString(),
       "description": description,
       "servesCuisine": "Indonesian",
       "priceRange": "Rp",
+      "telephone": BUSINESS.phone,
+      "url": Astro.site?.toString() || "https://warteg-barokah.com",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Jl. Raya Pulo Gebang No.RT04/04, RT.4/RW.4, Pulo Gebang",
-        "addressLocality": "Kec. Cakung, Kota Jakarta Timur",
+        "streetAddress": BUSINESS.address,
+        "addressLocality": "Jakarta Timur",
         "postalCode": "13950",
         "addressCountry": "ID"
       },
@@ -85,8 +92,17 @@ const {
       }
     })} />
   </head>
-  <body class="min-h-screen bg-background font-sans antialiased selection:bg-brand/10 selection:text-brand">
-    <slot />
+  <body class="min-h-screen bg-white dark:bg-zinc-950 font-sans antialiased selection:bg-brand/10 selection:text-brand transition-colors duration-300">
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-[100] bg-brand text-white px-6 py-3 rounded-full font-bold shadow-xl">
+      Skip ke konten utama
+    </a>
+
+    <div id="main-content">
+      <slot />
+    </div>
+
+    <WhatsAppFAB client:idle />
   </body>
 </html>
 
@@ -100,7 +116,7 @@ const {
   }
 
   body::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
 
   body::-webkit-scrollbar-track {
@@ -108,7 +124,18 @@ const {
   }
 
   body::-webkit-scrollbar-thumb {
-    background: var(--brand);
+    background: #e2e8f0;
     border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  .dark body::-webkit-scrollbar-thumb {
+    background: #1e293b;
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background: var(--brand);
+    background-clip: content-box;
   }
 </style>

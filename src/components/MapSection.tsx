@@ -1,31 +1,32 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
+import { BUSINESS } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 export function MapSection () {
   const contactInfo = [
     {
       icon: <MapPin className="h-6 w-6 text-brand" />,
       title: "Alamat Lengkap",
-      content: "Jl. Raya Pulo Gebang No.RT04/04, RT.4/RW.4, Pulo Gebang, Kec. Cakung, Kota Jakarta Timur, 13950",
+      content: BUSINESS.address,
     },
     {
       icon: <Clock className="h-6 w-6 text-brand" />,
       title: "Jam Operasional",
-      content: "Setiap Hari: 07:00 - 22:00 WIB",
+      content: `Setiap Hari: ${BUSINESS.openingHours}`,
     },
     {
       icon: <Phone className="h-6 w-6 text-brand" />,
       title: "Telepon / WhatsApp",
       content: (
-        <a 
-          href="https://wa.me/6285714277116?text=Halo%20Warteg%20Barokah,%20saya%20ingin%20bertanya." 
-          target="_blank" 
+        <a
+          href={BUSINESS.whatsappUrl("Halo Warteg Barokah, saya ingin bertanya.")}
+          target="_blank"
           rel="noopener noreferrer"
           className="hover:text-brand hover:underline transition-colors"
         >
-          0857-1427-7116 (Klik untuk pesan)
+          {BUSINESS.phoneFormatted} (Klik untuk pesan)
         </a>
       ),
       muted: false,
@@ -61,7 +62,7 @@ export function MapSection () {
                 transition={{ delay: idx * 0.1, duration: 0.5 }}
                 className={`flex items-start gap-5 p-2 ${info.muted ? "opacity-60" : ""}`}
               >
-                <div className="flex-shrink-0 h-14 w-14 rounded-2xl bg-brand/5 dark:bg-brand/10 flex items-center justify-center border border-brand/10 shadow-inner">
+                <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-brand/5 dark:bg-brand/10 flex items-center justify-center border border-brand/10 shadow-inner">
                   {info.icon}
                 </div>
                 <div className="flex flex-col gap-1">
@@ -80,17 +81,11 @@ export function MapSection () {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => {
-                if (typeof window !== "undefined" && (window as any).gtag) {
-                  (window as any).gtag("event", "click_google_maps", {
-                    location: "map_section",
-                  });
-                }
-              }}
+              onClick={() => trackEvent("click_google_maps", { location: "map_section" })}
               className="rounded-full border-brand/30 hover:border-brand hover:text-brand bg-brand/5 hover:bg-brand/10 shadow-lg shadow-brand/5 text-zinc-800 dark:text-zinc-200 gap-3 transition-all px-10 h-14 text-lg font-semibold"
               asChild
             >
-              <a href="https://goo.gl/maps/2MxrqYgHpT9XZfs87" target="_blank">
+              <a href={BUSINESS.googleMapsUrl} target="_blank" rel="noopener noreferrer">
                 Navigasi Google Maps
                 <ExternalLink className="h-5 w-5" />
               </a>

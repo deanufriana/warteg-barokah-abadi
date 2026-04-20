@@ -1,7 +1,10 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MoveRight, MapPin } from "lucide-react";
+import { BUSINESS } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
+
+import heroImage from "../assets/hero.png";
 
 export function Hero () {
   return (
@@ -9,7 +12,7 @@ export function Hero () {
       {/* Background Image with Enhanced Dark Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src={`${import.meta.env.BASE_URL}/assets/hero.png`}
+          src={heroImage.src}
           alt="Soto Ayam Warteg Barokah Cinematic"
           className="w-full h-full object-cover scale-105"
         />
@@ -50,19 +53,13 @@ export function Hero () {
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-            <Button 
-              size="lg" 
-              onClick={() => {
-                if (typeof window !== "undefined" && (window as any).gtag) {
-                  (window as any).gtag("event", "click_view_location", {
-                    location: "hero",
-                  });
-                }
-              }}
-              className="bg-brand hover:bg-brand/90 text-white rounded-full px-10 h-14 text-lg font-bold group transition-all shadow-2xl shadow-brand/40" 
+            <Button
+              size="lg"
+              onClick={() => trackEvent("click_view_location", { location: "hero" })}
+              className="bg-brand hover:bg-brand/90 text-white rounded-full px-10 h-14 text-lg font-bold group transition-all shadow-2xl shadow-brand/40"
               asChild
             >
-              <a href="https://goo.gl/maps/2MxrqYgHpT9XZfs87" target="_blank">
+              <a href={BUSINESS.googleMapsUrl} target="_blank" rel="noopener noreferrer">
                 Lihat Lokasi
                 <MapPin className="ml-2 h-5 w-5 group-hover:translate-y-[-2px] transition-transform" />
               </a>
@@ -72,7 +69,7 @@ export function Hero () {
                 <div className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></div>
                 <div className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></div>
               </div>
-              <span className="text-sm sm:text-base font-bold whitespace-nowrap opacity-90">Buka 07:00 - 22:00 WIB</span>
+              <span className="text-sm sm:text-base font-bold whitespace-nowrap opacity-90">Buka {BUSINESS.openingHours}</span>
             </div>
           </div>
         </motion.div>
@@ -86,7 +83,7 @@ export function Hero () {
         >
           <div className="p-10 bg-zinc-950/40 backdrop-blur-3xl border border-white/5 rounded-[3rem] shadow-2xl relative group overflow-hidden">
             <div className="flex flex-col gap-6">
-              <div className="h-14 w-14 rounded-2xl bg-brand/20 flex items-center justify-center text-brand mb-2">
+              <div className="h-14 w-14 rounded-xl bg-brand/20 flex items-center justify-center text-brand mb-2">
                 <Coffee size={32} />
               </div>
               <div>

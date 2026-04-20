@@ -1,6 +1,6 @@
-import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FoodCard } from "./FoodCard";
+import { trackEvent } from "@/lib/analytics";
 
 interface MenuItem {
   title: string;
@@ -25,13 +25,7 @@ export function MenuTabs({ items, categories }: MenuTabsProps) {
             <TabsTrigger 
               key={category}
               value={category}
-              onClick={() => {
-                if (typeof window !== "undefined" && (window as any).gtag) {
-                  (window as any).gtag("event", "select_menu_category", {
-                    category_name: category,
-                  });
-                }
-              }}
+              onClick={() => trackEvent("select_menu_category", { category_name: category })}
               className="rounded-full px-6 sm:px-8 py-2 md:py-2.5 data-[state=active]:bg-brand data-[state=active]:text-white transition-all duration-300 whitespace-nowrap"
             >
               {category}

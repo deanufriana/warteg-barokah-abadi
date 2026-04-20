@@ -1,6 +1,7 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { BUSINESS } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 const reviews = [
   {
@@ -65,7 +66,7 @@ export function Reviews () {
                 ))}
               </div>
 
-              <p className="text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed mb-8 italic">
+              <p className="text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed mb-8 italic line-clamp-4">
                 "{review.text}"
               </p>
 
@@ -89,8 +90,10 @@ export function Reviews () {
         >
           <p className="text-lg font-medium text-zinc-500">Nilai Rata-rata 4.8/5 di Google Maps</p>
           <a
-            href="https://maps.app.goo.gl/tmgvueYPuSLxzE1g6"
+            href={BUSINESS.googleMapsReviewUrl}
             target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent("click_view_all_reviews", { location: "review_section" })}
             className="inline-flex items-center gap-3 px-8 py-4 bg-brand/5 hover:bg-brand/10 text-brand rounded-full font-bold transition-all border border-brand/20 group"
           >
             Lihat Semua Ulasan <div className="group-hover:translate-x-1 transition-transform">&rarr;</div>
