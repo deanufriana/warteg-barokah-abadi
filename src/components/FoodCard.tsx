@@ -15,7 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Eye } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BUSINESS } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 
@@ -30,6 +30,14 @@ interface FoodCardProps {
 
 export function FoodCard ({ title, image, price, description, category, isPopular }: FoodCardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    // Check if image is already loaded (common in SSR/hydration)
+    if (imgRef.current?.complete) {
+      setIsLoaded(true);
+    }
+  }, []);
 
   return (
     <Dialog>
@@ -42,9 +50,11 @@ export function FoodCard ({ title, image, price, description, category, isPopula
             )}
 
             <img
+              ref={imgRef}
               src={image}
               alt={title}
               onLoad={() => setIsLoaded(true)}
+              onError={() => console.error(`Failed to load image: ${image}`)}
               className={`h-full w-full object-cover transition-all duration-700 group-hover:scale-110 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
                 }`}
             />
